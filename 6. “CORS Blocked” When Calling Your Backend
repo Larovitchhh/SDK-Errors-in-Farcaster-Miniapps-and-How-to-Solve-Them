@@ -1,0 +1,15 @@
+
+
+Farcaster miniapps run on servers — but if your backend also calls itself, or a frontend calls the backend, you may hit:
+
+CORS policy: No 'Access-Control-Allow-Origin'
+
+Fix
+
+Add a safe, minimal CORS config:
+
+import cors from "cors";
+app.use(cors({ origin: "*" }));
+
+
+Miniapps do not rely on browser CORS, but dashboards or admin tools might.
