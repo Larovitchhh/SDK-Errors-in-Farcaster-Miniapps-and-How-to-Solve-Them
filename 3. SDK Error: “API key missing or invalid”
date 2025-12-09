@@ -1,0 +1,28 @@
+
+
+SDK clients throw:
+
+401 Unauthorized: API key missing or invalid
+
+Causes
+
+Missing NEYNAR_API_KEY
+
+Wrong environment loading
+
+Running node app.js without .env loaded
+
+Solution
+
+Load environment variables:
+
+import dotenv from "dotenv";
+dotenv.config();
+
+
+Verify:
+
+echo $NEYNAR_API_KEY
+
+
+Deploy platforms like Vercel/Render must also have this variable configured.
