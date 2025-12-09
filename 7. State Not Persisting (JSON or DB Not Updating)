@@ -1,0 +1,24 @@
+
+
+Common error:
+
+TypeError: Cannot read property 'x' of undefined
+
+Cause
+
+Your storage functions (JSON or DB) fail silently.
+
+Fix
+
+Add atomic I/O wrappers:
+
+export function updateUser(fid, data) {
+  const db = JSON.parse(fs.readFileSync("./data/users.json"));
+  db[fid] = { ...(db[fid] || {}), ...data };
+  fs.writeFileSync("./data/users.json", JSON.stringify(db, null, 2));
+}
+
+
+Also add try/catch logging:
+
+try { ... } catch (err) { console.error("Storage error:", err); }
