@@ -1,0 +1,19 @@
+
+
+Example error:
+
+Cannot read properties of undefined (reading 'username')
+
+Cause
+
+Neynar returns a 404 when a user is NEW or not yet indexed.
+
+Fix
+
+Implement null guards:
+
+const user = await getFarcasterUser(fid).catch(() => null);
+if (!user) return res.send(renderErrorFrame("User not found on Farcaster"));
+
+
+Never assume lookup results are non-null.
