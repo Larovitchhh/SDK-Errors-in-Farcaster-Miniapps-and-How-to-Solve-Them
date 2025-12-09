@@ -1,0 +1,25 @@
+
+When handling a button POST:
+
+const { buttonIndex } = req.body.untrustedData;
+
+
+Developers often receive undefined.
+
+Cause
+
+Warpcast sends buttonIndex only when the action type is "post".
+
+Fix
+
+Verify your meta:
+
+<meta name="fc:frame:button:1" content="Select">
+<meta name="fc:frame:button:1:action" content="post">
+
+
+And add safe fallback:
+
+if (buttonIndex === undefined) {
+  return res.send(renderErrorFrame("No button selected"));
+}
