@@ -1,0 +1,36 @@
+
+
+When using Neynar’s signature verification:
+
+import { validateFrame } from "@neynar/nodejs-sdk";
+
+
+you may see:
+
+Error: Invalid frame signature
+
+Cause
+
+Wrong public key
+
+Incorrect request body
+
+Frame request is not passed raw
+
+Express JSON middleware modifies the payload
+
+Fix
+
+Disable Express body parsing for the frame route:
+
+app.post("/frame", express.raw({ type: "*/*" }), async (req, res) => {
+  const result = validateFrame(req.body);
+});
+
+
+Or use the SDK wrapper:
+
+app.use(express.json());
+
+
+Important: Signature verification REQUIRES the unmodified byte stream.
