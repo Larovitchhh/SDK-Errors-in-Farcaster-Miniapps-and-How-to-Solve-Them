@@ -1,0 +1,27 @@
+
+
+Many Farcaster miniapps rely on identifying the user via:
+
+req.headers["x-farcaster-user"]
+
+Symptoms
+
+fid is undefined
+
+Your handlers return Missing x-farcaster-user header
+
+The miniapp only works when tested locally
+
+Why It Happens
+
+This header is only sent when interacting inside a Farcaster client (e.g., Warpcast), not when accessing URLs manually.
+
+Solution
+
+Always validate and provide a fallback:
+
+const fid = req.headers["x-farcaster-user"] || null;
+if (!fid) return res.status(400).json({ error: "Missing x-farcaster-user header" });
+
+
+Never assume this header exists when opening the URL in Chrome or Postman.
