@@ -1,0 +1,34 @@
+
+
+Warpcast or other clients show:
+
+“Something went wrong loading this frame”
+
+Common Causes
+
+Missing <meta name="fc:frame" content="vNext">
+
+Buttons missing action attribute
+
+Invalid image URL
+
+Returning JSON instead of HTML
+
+Correct Frame Response Example
+res.set("Content-Type", "text/html");
+
+res.send(`
+<html>
+  <head>
+    <meta name="fc:frame" content="vNext">
+    <meta property="og:title" content="My Frame">
+    <meta property="og:image" content="https://yourdomain/og.png">
+
+    <meta name="fc:frame:button:1" content="Next">
+    <meta name="fc:frame:button:1:action" content="post">
+  </head>
+</html>
+`);
+
+
+Always validate your meta tags!
